@@ -1,0 +1,33 @@
+# 专家信息采集系统依赖
+
+# 核心依赖
+browser-use>=0.12.0
+openpyxl>=3.1.0
+pydantic>=2.7.0
+python-dotenv>=1.0.0
+PyYAML>=6.0
+
+# LLM 相关
+openai>=2.0.0
+anthropic>=0.76.0
+
+# 网络请求
+aiohttp>=3.9.0
+httpx>=0.28.0
+requests>=2.32.0
+
+# HTML 解析
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+markdownify>=1.2.0
+
+# 浏览器自动化相关
+cdp-use>=1.4.0
+pillow>=10.0.0
+screeninfo>=0.8.0
+
+# 其他工具
+python-dateutil>=2.9.0
+rich>=13.0.0
+tenacity>=9.0.0
+tqdm>=4.66.0

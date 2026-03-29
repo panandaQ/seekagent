@@ -1,0 +1,71 @@
+# 专家信息采集系统配置文件
+
+# ===== 可配置的提取字段 =====
+# 新增字段时只需在此添加，系统会自动处理
+fields:
+  - name: biography
+    label: 简介
+    description: 教育背景、工作经历、主要成就（200-500字）
+    priority: high
+
+  - name: affiliation
+    label: 工作单位
+    description: 院校级单位名称（如"同济大学"、"北京大学"），若无院校信息则填写实验室/研究所全称（如"中国科学院计算技术研究所"）
+    priority: high
+
+  - name: email
+    label: 邮箱
+    description: 公开邮箱；若使用 [at] / (at) / # 等替代写法，请还原
+    priority: high
+
+  - name: phone
+    label: 电话
+    description: 公开办公电话（非主要联系方式参考）
+    priority: medium
+
+# ===== 文件路径配置 =====
+paths:
+  excel_path: "专家名单-small.xlsx"
+  log_dir: "logs"
+  save_conversation_path: "logs/agent_conversations"
+  save_conversations: false    # 是否保存 Agent 对话记录（调试用）
+
+# ===== 日志配置 =====
+logging:
+  level: "INFO"           # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  console_output: true    # 是否输出到控制台
+  file_output: false       # 是否输出到文件
+
+# ===== LLM 配置 =====
+llm:
+  model: "qwen3.5-flash"
+  base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+
+# ===== API 密钥配置（也可通过环境变量设置）=====
+api_keys:
+  openai: ""
+  browser_use: ""  # Browser Use Cloud API Key
+  anthropic: ""    # Anthropic API Key
+  google: ""       # Google Gemini API Key
+
+# ===== 浏览器配置 =====
+browser:
+  headless: true
+  use_vision: true
+  # 性能优化配置
+  disable_multi_tabs: true       # 禁用多标签页以减少资源占用
+  max_session_time: 300           # 单个会话最长时长（秒）
+
+# ===== Agent 行为配置 =====
+agent:
+  max_steps: 20
+  max_actions_per_step: 5
+  min_success_fields: 3          # 成功所需的最少字段数
+  # 已移除部分成功，只有成功和失败两种状态
+  retry_on_failure: false        # 失败时是否重试（使用已提取的单位信息）
+  max_retries: 0                # 最大重试次数
+
+# ===== 并发与限流配置 =====
+execution:
+  concurrency: 1                  # 并发处理专家数量（降低为1避免资源竞争）
+  request_interval_seconds: 5.0   # 每个专家处理后的等待秒数（增加间隔）
